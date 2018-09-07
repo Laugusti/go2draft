@@ -20,3 +20,31 @@ func ExampleMultiMap() {
 	// [two dos]
 	// [three tres]
 }
+
+func ExampleMapOf() {
+	// keyFunc is returns the value index as the key
+	keyFunc := func(i int, s string) { return i }
+	m := multimap.MapOf(int, string)(keyFunc, "zero", "one", "two")
+
+	fmt.Println(m.Get(0))
+	fmt.Println(m.Get(1))
+	fmt.Println(m.Get(2))
+	// Output:
+	// [zero]
+	// [one]
+	// [two]
+}
+
+func ExampleAsRawMap() {
+	m := multimap.NewMap(int, string)()
+	m.Set(1, "one")
+	m.Set(2, "two")
+	m.Add(2, "dos")
+	m.AddAll(3, []string{"three", "tres"})
+
+	// create a map[int]string using the first value for each key in the multimap
+	rm := m.AsRawMap(func(i int, a []string) { return a[0] })
+	fmt.Println(rm)
+	// Output:
+	// [1:one 2:two 3:three]
+}
