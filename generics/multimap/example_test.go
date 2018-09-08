@@ -21,7 +21,7 @@ func ExampleMultiMap() {
 	// [three tres]
 }
 
-func ExampleMapOf() {
+func ExampleMultiMap_MapOf() {
 	// keyFunc is returns the value index as the key
 	keyFunc := func(i int, s string) { return i }
 	m := multimap.MapOf(int, string)(keyFunc, "zero", "one", "two")
@@ -35,7 +35,7 @@ func ExampleMapOf() {
 	// [two]
 }
 
-func ExampleAsRawMap() {
+func ExampleMultiMap_AsRawMap() {
 	m := multimap.NewMap(int, string)()
 	m.Set(1, "one")
 	m.Set(2, "two")
