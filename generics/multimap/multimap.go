@@ -1,13 +1,13 @@
 // Package multimap provoides an implementation of map that may contain one or more values
 package multimap
 
-// mapper is a contract that the first type is comparable using '=='
-contract mapper(k K, _ V) {
+// mappable is a contract with two types and the first type is comparable using '=='
+contract mappable(k K, _ V) {
 	k == k
 }
 
 // MultiMap is map that may contain one or more values. This is a parameterized type.
-type MultiMap(type K, V mapper) struct {
+type MultiMap(type K, V mappable) struct {
 	m map[K][]V
 }
 
@@ -49,13 +49,13 @@ func (m *MultiMap(K, V)) AsRawMap(valueSelector func(K, []V) V) map[K]V {
 }
 
 // NewMap returns a new MultiMap
-func NewMap(type K, V mapper)() *MultiMap(K, V) {
+func NewMap(type K, V mappable)() *MultiMap(K, V) {
 	// TODO: can infer type arguments from value??
 	return &MultiMap(K, V){map[K][]V{}}
 }
 
 // MapOf creates a new MultiMap using a variable number of argument values and a key function
-func MapOf(type K, V mapper)(keyFunc func(int, V) K, values ...V) *MultiMap(K, V) {
+func MapOf(type K, V mappable)(keyFunc func(int, V) K, values ...V) *MultiMap(K, V) {
 	m := NewMap(K, V)()
 	for i, v := range values {
 		m.Add(keyFunc(i, v), v)
