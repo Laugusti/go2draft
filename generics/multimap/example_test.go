@@ -44,7 +44,5 @@ func ExampleMultiMap_AsRawMap() {
 
 	// create a map[int]string using the first value for each key in the multimap
 	rm := m.AsRawMap(func(i int, a []string) { return a[0] })
-	fmt.Println(rm)
-	// Output:
-	// [1:one 2:two 3:three]
+	fmt.Println(rm) // prints (order not guaranteed) [1:one 2:two 3:three]
 }
